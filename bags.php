@@ -34,15 +34,13 @@
 </head>
 <body>
 
-<h2 style="text-align:center">Product Card</h2>
-
 <div class="card">
-  <img src="top1.jpg" alt="Denim Jeans" style="width:100%">
-  <h1>BASIC LONG SLEEVE T-SHIRT</h1>
-  <p class="price">49.90 ILS</p>
-  <p>Stretch top with a round neckline and long sleeves..</p>
+  <img src="bags1.jpg" alt="Denim Jeans" style="width:100%">
+  <h1>PRINTED MESSENGER BAG</h1>
+  <p class="price">249 ILS</p>
+  <p>Crossbody bag. Printed front flap. Double compartment. Adjustable shoulder strap. Magnetic clasp closure.</p>
   <p><button>Add to Cart</button></p>
-  <p><button>Add to wishlist</button></p>
+  <p><button>Add to whislist</button></p>
 </div>
 
 </body>

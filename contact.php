@@ -61,7 +61,7 @@ body {
 <body>
 
 <div class="header">
-  <a href="#default" class="logo"><img src="logo.png" style="width:50%"></a>
+  <a href="#default" class="logo"><img src="logo1.png" style="width:50%"></a>
   <div class="header-right">
 
   </div>
@@ -151,7 +151,7 @@ input[type=Send]:hover {
   </div>
   <div class="row">
     <div class="column">
-      <a href="home.php"><img src="logo.png" style="width:100%"></a>
+      <a href="home.php"><img src="logo1.png" style="width:100%"></a>
     </div>
     <div class="column">
       <form action="/action_page.php">

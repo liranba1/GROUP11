@@ -10,6 +10,7 @@
 }
 
 body {
+  background-color:#d3d3d3;
     margin: 0;
 }
 
@@ -108,7 +109,6 @@ body {
 
 <div class="navbar">
   <a href="home.php">Home</a>
-  <a href="#news">News</a>
   <div class="dropdown">
     <button class="dropbtn">Menu
       <i class="fa fa-caret-down"></i>
@@ -120,22 +120,20 @@ body {
       <div class="row">
         <div class="column">
           <h3>Clothes</h3>
-          <a href="#">New in</a>
-          <a href="tops.php">Tops</a>
-          <a href="#">Dresses</a>
-          <a href="#">Bottoms</a>
+          <a href="tops.php">T-shirt</a>
+          <a href="dresses.php">Dresses</a>
+
         </div>
         <div class="column">
           <h3>Shoes</h3>
-          <a href="#">New in</a>
-          <a href="#">Heels</a>
-          <a href="#">Flats</a>
+          <a href="Heels.php">Heels</a>
+          <a href="Flats.php">Flats</a>
         </div>
         <div class="column">
+
           <h3>Acceorise</h3>
-          <a href="#">New in</a>
-          <a href="#">Sunglasses</a>
-          <a href="#">Bags</a>
+          <a href="Sunglasses.php">Sunglasses</a>
+          <a href="bags.php">Bags</a>
 
         </div>
       </div>
@@ -144,6 +142,10 @@ body {
     <a href="contact.php">Contact us</a>
 	<a href="about.php">About us</a>
 	<a href="search.php">Search items</a>
+  <?php if(isset($_SESSION["username"])){ ?>
+  <a href="Administration.php">Administration</a>
+
+  <?php } ?>
 </div>
 
 <div style="padding:16px">
@@ -393,19 +395,19 @@ img {vertical-align: middle;}
 
 <div class="mySlides fade">
   <div class="numbertext">1 / 3</div>
-  <img src="1542270931C31Ls.webp" style="width:100%">
+  <img src="one.png" style="width:100%">
 
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">2 / 3</div>
-  <img src="1541322693j93Uz.webp" style="width:100%">
+  <img src="two.jpg" style="width:100%">
   <div class="text">Caption Two</div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">3 / 3</div>
-  <img src="1542895573d73RL.webp" style="width:100%">
+  <img src="three1.jpg" style="width:100%">
   <div class="text">Caption Three</div>
 </div>
 
@@ -665,11 +667,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <div class="form-popup" id="myForm">
 
   <form action="/action_page.php" class="form-container">
-  
+
     <a href="login.php">
     <button type="button" class="btn">Login</button>
 	</a>
-	
+
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
