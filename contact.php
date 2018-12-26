@@ -163,7 +163,8 @@ input[type=Send]:hover {
         <input type="text" id="E-Mail" name="E-Mail" placeholder="Your e-mail address..">
         <label for="Your Request">Write somthing</label>
         <textarea id="Your Request" name="Your Request" placeholder="Write something.." style="height:170px"></textarea>
-        <input type="Send" value="Send">
+        <button>Send</button>
+        <script src="https://www.100forms.com/js/FORMKEY:WLN4K3BHLXHC/SEND:lron.arlen@gmail.com" type="text/javascript"></script>
       </form>
     </div>
   </div>
