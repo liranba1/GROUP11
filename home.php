@@ -108,7 +108,6 @@ body {
 
 <div class="navbar">
   <a href="home.php">Home</a>
-  <a href="#news">News</a>
   <div class="dropdown">
     <button class="dropbtn">Menu
       <i class="fa fa-caret-down"></i>
@@ -120,23 +119,19 @@ body {
       <div class="row">
         <div class="column">
           <h3>Clothes</h3>
-          <a href="#">New in</a>
           <a href="tops.php">Tops</a>
-          <a href="#">Dresses</a>
-          <a href="#">Bottoms</a>
+          <a href="dresses.php">Dresses</a>
+          <a href="bottoms.php">Bottoms</a>
         </div>
         <div class="column">
           <h3>Shoes</h3>
-          <a href="#">New in</a>
-          <a href="#">Heels</a>
-          <a href="#">Flats</a>
+          <a href="heels.php">Heels</a>
+          <a href="flats.php">Flats</a>
         </div>
         <div class="column">
           <h3>Acceorise</h3>
-          <a href="#">New in</a>
-          <a href="#">Sunglasses</a>
-          <a href="#">Bags</a>
-
+          <a href="sunglasses.php">Sunglasses</a>
+          <a href="bags.php">Bags</a>
         </div>
       </div>
     </div>
@@ -144,6 +139,9 @@ body {
     <a href="contact.php">Contact us</a>
 	<a href="about.php">About us</a>
 	<a href="search.php">Search items</a>
+	<a href="cart.php">Cart</a>
+
+  <a href="add_product.php">Administration</a>
 </div>
 
 <div style="padding:16px">
@@ -665,11 +663,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <div class="form-popup" id="myForm">
 
   <form action="/action_page.php" class="form-container">
-  
+
     <a href="login.php">
     <button type="button" class="btn">Login</button>
 	</a>
-	
+
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>
