@@ -1,62 +1,34 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-    font-family: "Lato", sans-serif;
-}
+<? include "header.php";?>
+<!-- content page -->
+	<section class="bgwhite p-t-66 p-b-38">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 p-b-30">
+					<div class="hov-img-zoom">
+						<img src="images/banner-14.jpg" alt="IMG-ABOUT">
+					</div>
+				</div>
 
-.sidenav {
-    width: 130px;
-    position: fixed;
-    z-index: 1;
-    top: 20px;
-    left: 10px;
-    background: #eee;
-    overflow-x: hidden;
-    padding: 8px 0;
-}
+				<div class="col-md-8 p-b-30">
+					<h3 class="m-text26 p-t-15 p-b-16">
+						Our story
+					</h3>
 
-.sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #2196F3;
-    display: block;
-}
+					<p class="p-b-28">
+						Phasellus egestas nisi nisi, lobortis ultricies risus semper nec. Vestibulum pharetra ac ante ut pellentesque. Curabitur fringilla dolor quis lorem accumsan, vitae molestie urna dapibus. Pellentesque porta est ac neque bibendum viverra. Vivamus lobortis magna ut interdum laoreet. Donec gravida lorem elit, quis condimentum ex semper sit amet. Fusce eget ligula magna. Aliquam aliquam imperdiet sodales. Ut fringilla turpis in vehicula vehicula. Pellentesque congue ac orci ut gravida. Aliquam erat volutpat. Donec iaculis lectus a arcu facilisis, eu sodales lectus sagittis. Etiam pellentesque, magna vel dictum rutrum, neque justo eleifend elit, vel tincidunt erat arcu ut sem. Sed rutrum, turpis ut commodo efficitur, quam velit convallis ipsum, et maximus enim ligula ac ligula. Vivamus tristique vulputate ultricies. Sed vitae ultrices orci.
+					</p>
 
-.sidenav a:hover {
-    color: #064579;
-}
+					<div class="bo13 p-l-29 m-l-9 p-b-10">
+						<p class="p-b-11">
+							Creativity is just connecting things. When you ask creative people how they did something, they feel a little guilty because they didn't really do it, they just saw something. It seemed obvious to them after a while.
+						</p>
 
-.main {
-    margin-left: 140px; /* Same width as the sidebar + left position in px */
-    font-size: 28px; /* Increased text to enable scrolling */
-    padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-}
-</style>
-</head>
-<body>
-
-<div class="sidenav">
-  <a href="home.php">Home</a>
-
-</div>
-
-<div class="main">
-  <h2>About Us</h2>
-  <p>This sidebar is as tall as its content (the links), and is always shown.</p>
-  <p>Scroll down the page to see the result.</p>
-  <p>The site was established by a team of 4 partners in the fashion and engineering fields.
-The site is updated on a daily basis in new fashion items manufactured in Israel..</p>
-
-</div>
-
-</body>
-</html>
+						<span class="s-text7">
+							- Steve Job’s
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<? include "footer.php";?>
