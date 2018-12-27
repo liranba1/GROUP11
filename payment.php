@@ -3,7 +3,7 @@
 <form action="payment.php" method="post" enctype="multipart/form-data">
 <table border=1>
 <tr>
-<th colspan=2>Add Product</th>
+<th colspan=2>purchase</th>
 </tr>
 <tr>
 <td>Full name:</td>

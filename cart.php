@@ -36,7 +36,7 @@ while($row=mysqli_fetch_array($run))
 </center>
 <center>
 <p>Total Price:<?php echo $total;echo '$'; ?></p>
-<button><a href="payment.php">check out</a></button>
+<a href="payment.php"><button>Check Out</button></a>
 <a href="home.php"><button>Continue purchase</button></a>
 <tr><th colspan=8><input type="submit" name="submit" value="Update" /></th></tr>
 </center>
