@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: דצמבר 27, 2018 בזמן 10:59 AM
--- גרסת שרת: 5.7.23
+-- Generation Time: Dec 25, 2018 at 11:23 AM
+-- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- מבנה טבלה עבור טבלה `cat`
+-- Table structure for table `cat`
 --
 
 DROP TABLE IF EXISTS `cat`;
@@ -33,10 +33,10 @@ CREATE TABLE IF NOT EXISTS `cat` (
   `id` int(255) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
--- הוצאת מידע עבור טבלה `cat`
+-- Dumping data for table `cat`
 --
 
 INSERT INTO `cat` (`id`, `name`) VALUES
@@ -44,14 +44,12 @@ INSERT INTO `cat` (`id`, `name`) VALUES
 (3, 'SHIRTS | BLOUSES'),
 (4, 'DRESSES'),
 (5, 'SKRITS'),
-(6, 'COATS'),
-(7, 'noy'),
-(8, 'noy');
+(6, 'COATS');
 
 -- --------------------------------------------------------
 
 --
--- מבנה טבלה עבור טבלה `items`
+-- Table structure for table `items`
 --
 
 DROP TABLE IF EXISTS `items`;
@@ -66,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `items` (
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
--- הוצאת מידע עבור טבלה `items`
+-- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`id`, `cid`, `name`, `price`, `sizes`, `url`) VALUES
@@ -89,7 +87,7 @@ INSERT INTO `items` (`id`, `cid`, `name`, `price`, `sizes`, `url`) VALUES
 -- --------------------------------------------------------
 
 --
--- מבנה טבלה עבור טבלה `users`
+-- Table structure for table `users`
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -100,10 +98,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(255) NOT NULL,
   `rank` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
--- הוצאת מידע עבור טבלה `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `rank`) VALUES
