@@ -30,10 +30,11 @@ if(isset($_GET['edit']) && isset($_GET['name']) && $_GET['edit'] == "items" && !
     $cid = $_GET['cid'];
     $sizes = $_GET['sizes'];
     $url = $_GET['url'];
+    $stock = $_GET['stock'];
     $q = mysqli_query($db, "SELECT * FROM items WHERE id = '$id'");
     if(mysqli_num_rows($q) == 1){
         $row = mysqli_fetch_object($q);
-        mysqli_query($db, "UPDATE `items` SET `cid`='$cid',`name`='$edit',`price`='$price',`sizes`='$sizes',`url`='$url' WHERE id = '$id'");
+        mysqli_query($db, "UPDATE `items` SET `cid`='$cid',`name`='$edit',`price`='$price',`sizes`='$sizes',`url`='$url',`stock`='$stock' WHERE id = '$id'");
         echo "edited";
     }
 }
@@ -44,7 +45,8 @@ if(isset($_GET['new']) && isset($_GET['name']) && $_GET['new'] == "item"){
     $cid = $_GET['cid'];
     $sizes = $_GET['sizes'];
     $url = $_GET['url'];
-    mysqli_query($db, "insert into items(`cid`, `name`, `price`, `sizes`, `url`) VALUES ('$cid','$edit','$price','$sizes','$url')");
+    $stock = $_GET['stock'];
+    mysqli_query($db, "insert into items(`cid`, `name`, `price`, `sizes`, `url`,`stock`) VALUES ('$cid','$edit','$price','$sizes','$url','$stock')");
     echo "saved";
 }
 
@@ -188,6 +190,9 @@ if(isset($_GET['new']) && isset($_GET['name']) && $_GET['new'] == "user"){
                                 <div class="col">
                                     <input type="text" value="" name="url" class="form-control" placeholder="Url" style="border: 1px solid black!important;">
                                 </div>
+                                <div class="col">
+                                    <input type="text" value="" name="stock" class="form-control" placeholder="Stock" style="border: 1px solid black!important;">
+                                </div>
                                 <input name="new" value="item" type="hidden">
                                 <button type="submit" class="btn btn-primary">submit</button>
                             </div>
@@ -202,6 +207,7 @@ if(isset($_GET['new']) && isset($_GET['name']) && $_GET['new'] == "user"){
                                 <th scope="col">Price</th>
                                 <th scope="col">Sizes</th>
                                 <th scope="col">Url</th>
+                                <th scope="col">Stock</th>
                                 <th scope="col">action</th>
                             </tr>
                             </thead>
@@ -232,6 +238,9 @@ if(isset($_GET['new']) && isset($_GET['name']) && $_GET['new'] == "user"){
                                         </th>
                                         <th>
                                             <input type="text" value="<?=$row->url?>" name="url" class="form-control" placeholder="Url" style="border: 1px solid black!important;">
+                                        </th>
+                                        <th>
+                                            <input type="text" value="<?=$row->stock?>" name="stock" class="form-control" placeholder="stock" style="border: 1px solid black!important;">
                                         </th>
                                         <th>
                                             <input name="id" value="<?=$row->id?>" type="hidden">
