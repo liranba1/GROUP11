@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: נובמבר 26, 2018 בזמן 06:32 PM
+-- Generation Time: דצמבר 25, 2018 בזמן 02:30 PM
 -- גרסת שרת: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(255) NOT NULL,
   `rank` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- הוצאת מידע עבור טבלה `users`
@@ -45,7 +45,9 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `rank`) VALUES
 (1, 'Admin', 'liranbalilti3@gmail.com', 'a7731983ded99c943589e4210144cc48', 2),
 (2, 'liran', 'liranbalilti3@nana10.co.il', 'a7731983ded99c943589e4210144cc48', 0),
-(3, 'noy', 'noynegines@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0);
+(3, 'noy', 'noynegines@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0),
+(4, 'raz', 'tomerbalilti2@gmail.com', 'a7731983ded99c943589e4210144cc48', 0),
+(5, 'orel', '111sapir00@walla.com', 'b8308adb7f8fdf3087214437d223dec4', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

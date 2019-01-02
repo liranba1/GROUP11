@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,44 +69,37 @@ input[type=submit]:hover {
 </style>
 </head>
 <body>
-
+<center>
 <h2>Search item on site</h2>
-<p>Enter details</p>
-
+<p>Enter product Name or Barcode</p>
+</center>
+<a href="home.php"><p align="right">Return Home Page</p></a>
 <div class="container">
-  <form action="/action_page.php">
+  <form action="searchp.php" method="post">
     <div class="row">
       <div class="col-25">
         <label for="fname">Item name</label>
       </div>
       <div class="col-75">
-        <input type="text" id="fname" name="firstname" placeholder="The name is...">
+        <input type="text" name="item_name" placeholder="The product name is...">
       </div>
     </div>
     <div class="row">
       <div class="col-25">
-        <label for="lname">Item code</label>
+        <label for="lname">Item barcode</label>
       </div>
       <div class="col-75">
-        <input type="text" id="lname" name="lastname" placeholder="The code is..">
+        <input type="text" name="barcode" placeholder="The barcode is..">
       </div>
     </div>
-
-  <div class="row">
-    <div class="col-25">
-      <label for="fname">Item price</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="fname" name="Item price" placeholder=" The price is..">
-    </div>
-  </div>
-
-    <div class="row">
-	   <br/>
-       <a href="#news">Search</a><br/><br/>
-       <a href="home.php">Return Home Page</a><br/>
-    </div>
-  </form>
+	<center>
+	<br>
+	<center>
+	<input type="submit" name="submit" value="Search">
+	</center>
+	</br>
+	</center>
+	</form>
 </div>
 
 </body>

@@ -7,19 +7,18 @@ $username=$_SESSION["username"];
 <a href="home.php"><p align="right">Home Page</p></a>
 <center>
 <table border=1>
-<h2><th colspan=8>Tops</th></h2>
+<h2><th colspan=8>Dresses</th></h2>
 <tr><th>Name:</th>
 <th>Image</th>
 <th>Price</th>
 <th>Size</th>
 <th>Add to cart</th>
-<th>Wishlist</th>
 </tr>
 
 
 <?php 
 $db = mysqli_connect('localhost', 'root', '','cart');
-$query="SELECT * FROM product WHERE size='All' and catagory='tops'";
+$query="SELECT * FROM product WHERE size='All'";
 $run=mysqli_query($db,$query);
 while ($row =mysqli_fetch_array($run))
 {
@@ -35,7 +34,7 @@ while ($row =mysqli_fetch_array($run))
 	<tr><th><?php echo $name; ?></th>
 	<th><img src="image/<?php echo $image ; ?>" width="300" height="200" ?></th>
 	<th><?php echo $price; echo '$'; ?></th>
-	<form action="tops.php" method="post">
+	<form action="dresses.php" method="post">
 		<th><select name="size">
 		<option value="XS">XS</option>
 		<option value="S">S</option>
@@ -47,14 +46,12 @@ while ($row =mysqli_fetch_array($run))
 	<input type="hidden" value="<?php echo $barcode; ?>" name="barcode" />
 	<?php if($quantity>0) {?>
 	<th><input type="submit" name="submit" value="Add to cart"></th>
-	<th>
-	<a href='process.php?name=<?php echo $name;?>&barcode=<?php echo $barcode;?>&image=<?php echo $image;?>&cat=<?php echo $cat;?>&price=<?php echo $price;?>'> Wishlist </a>
-	</th>
+	
 	<?php } else {?>
 	<th><?php echo "Item out of stock!"; ?></th>
 	<?php }?>
-	</form></tr>
 	
+	</form></tr>
 	<?php }?>
 	<?php if(isset($_POST['submit']) and isset($_SESSION['username']))
 	{
@@ -68,7 +65,7 @@ while ($row =mysqli_fetch_array($run))
 		$res=$row['quantity'];
 		
 		if($res<1)
-			echo "<script>alert('The product choosen is out of Stock!'); window.location.href='tops.php'</script>";
+			echo "<script>alert('The product choosen is out of Stock!'); window.location.href='dresses.php'</script>";
 		else
 		{
 		$query="SELECT * from stock WHERE barcode='$barcode' AND size='$size'";

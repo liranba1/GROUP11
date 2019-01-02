@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,12 +60,6 @@ body {
 </style>
 </head>
 <body>
-
-<div class="header">
-  <a href="#default" class="logo"><img src="logo.png" style="width:50%"></a>
-  <div class="header-right">
-
-  </div>
 </div>
 
 <div style="padding-left:20px">
@@ -142,9 +137,8 @@ input[type=Send]:hover {
 </style>
 </head>
 <body>
-
-
 <div class="container">
+<a href="home.php"><p align="left">Back to Home Page</p></a>
   <div style="text-align:center">
     <h2>Contact Us</h2>
     <p>please enter your details</p>
@@ -154,21 +148,51 @@ input[type=Send]:hover {
       <a href="home.php"><img src="logo.png" style="width:100%"></a>
     </div>
     <div class="column">
-      <form action="/action_page.php">
+      <form action="contact.php" method="post">
         <label for="fname">First Name</label>
-        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+        <input type="text" id="fname" name="fname" placeholder="Your name..">
         <label for="lname">Last Name</label>
-        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        <input type="text" id="lname" name="lname" placeholder="Your last name..">
         <label for="E-Mail">E-Mail</label>
-        <input type="text" id="E-Mail" name="E-Mail" placeholder="Your e-mail address..">
+        <input type="text" id="email" name="email" placeholder="Your e-mail address..">
         <label for="Your Request">Write somthing</label>
-        <textarea id="Your Request" name="Your Request" placeholder="Write something.." style="height:170px"></textarea>
-        <button>Send</button>
-        <script src="https://www.100forms.com/js/FORMKEY:WLN4K3BHLXHC/SEND:lron.arlen@gmail.com" type="text/javascript"></script>
+        <textarea id="Your Request" name="message" placeholder="Write something.." style="height:170px"></textarea>
+		<center>
+        <input type="submit" name="submit" value="Send">
+		</center>
       </form>
+	  <?php
+	  $db = mysqli_connect('localhost', 'root', '','admin');
+	  if(!isset($db))
+		  header("location:home.php");
+		if (isset($_POST['submit']))
+		{
+			if(isset($_SESSION['username']))
+			{
+				$username=$_SESSION['username'];
+				$fname=$_POST['fname'];
+				$lname=$_POST['lname'];
+				$email=$_POST['email'];
+				$message=$_POST['message'];
+				$full_name=$fname.' '.$lname;
+				$query="insert into support (username,full_name,email,message) VALUES ('$username','$full_name','$email','$message')";
+				if (mysqli_query($db,$query))
+				{
+					echo "<script>alert('Message Sent!'); window.location.href='home.php'</script>";
+				}
+				else
+				{
+					echo "<script type='text/javascript'>alert('Message send faild')</script>";
+				}
+			}
+			else
+				echo "<script type='text/javascript'>alert('You must log in before sending a message!')</script>";
+		}
+		
+?>
     </div>
   </div>
 </div>
-
 </body>
+
 </html>
