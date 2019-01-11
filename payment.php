@@ -1,4 +1,4 @@
-<?php session_start(); if (isset($_SESSION['pay']) and isset($_SESSION['username'])) { ?>
+<?php include "header.php" ; if (isset($_SESSION['pay']) and isset($_SESSION['username'])) { ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -180,7 +180,7 @@ span.price {
 </form>
 </body>
 </html>
-<?php }else echo "<script type='text/javascript'>alert('Permission Denied!');window.location.href='home.php'</script>";?> 
+<?php }else echo "<script type='text/javascript'>alert('Permission Denied!');window.location.href='home.php'</script>";?>
 <?php
 	$db = mysqli_connect('localhost', 'root', '','admin');
 	$db1=mysqli_connect('localhost','root','','cart');
@@ -202,7 +202,7 @@ span.price {
 			$update="UPDATE stock SET quantity=quantity-'$qt' WHERE barcode='$barcode' AND size='$size'";
 			mysqli_query($db1,$update)or die("Updating product quantity Error");
 		}
-		
+
 		$exp_year=$_POST['expyear'];
 		$exp_month=$_POST['expmonth'];
 		$cardnum=$_POST['cardnumber'];
@@ -219,14 +219,15 @@ span.price {
 		$m=date('m');
 		$y=date('Y');
 		$date=$d.'/'.$m.'/'.$y;
-		
-		if(strlen($cardnum)<19 or (strlen($cardnum))>20 or strlen((string)$cvv)<3 or strlen((string)$cvv)>5 or strlen($exp)<5 or !(filter_var($email, FILTER_VALIDATE_EMAIL)) or (!isset($fullname)) or strlen($address)<5 or strlen($city)<4 or strlen((string)$zip)<3)
+
+		if(strlen($cardnum)<19 or (strlen($cardnum))>20 or strlen((string)$cvv)!=3 or strlen($exp)<5 or !(filter_var($email, FILTER_VALIDATE_EMAIL)) or (!isset($fullname)) or strlen($address)<5 or strlen($city)<4 )
 		{
 			echo "<script type='text/javascript'>alert('All the fields are must be Valid!');window.location.href='payment.php'</script>";
 		}
 		else
 		{
-		$query="insert into payments (username,time,year,month,day,card,cvv,exp,tprice) VALUES ('$username','$time','$y','$m','$d','$cardnum','$cvv','$exp','$tprice')";
+		$card=md5($cardnum);
+		$query="insert into payments (username,time,year,month,day,card,cvv,exp,tprice) VALUES ('$username','$time','$y','$m','$d','$card','$cvv','$exp','$tprice')";
 		if (mysqli_query($db,$query))
 		{
 			$query="SELECT id FROM payments WHERE username='$username' and time='$time' and day='$d' and month='$m' and year='$y'";
@@ -235,7 +236,7 @@ span.price {
 			$id=$row['id'];
 			$query="insert into shippments(id,full_name,day,month,year,city,state,address,zip) VALUES ('$id','$fullname','$d','$m','$y','$city','$state','$address','$zip')";
 			mysqli_query($db,$query) or die('Sql Error');
-			
+
 			$query="SELECT * FROM cart WHERE username='$username'";
 			if($query)
 		{
@@ -252,7 +253,7 @@ span.price {
 				$query="insert into orders (id,username,time,day,month,year,barcode,name,image,size,quantity,price) VALUES ('$id','$username','$time','$d','$m','$y','$barcode','$name','$image','$size','$quantity','$price')";
 				mysqli_query($db,$query) or die('Sql Error');
 			}
-			
+
 		}
 
 			$delete="DELETE from cart WHERE username='$username'";

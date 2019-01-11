@@ -1,11 +1,12 @@
-<?php session_start(); 
+<?php include "table.css" ;?>
+<?php include "header.php" ;
 if(!isset($_SESSION['username']))
 {
 	header('location:home.php');
 }
 if(isset($_SESSION['rank']))
 {
-if ($_SESSION['rank']!=2) 
+if ($_SESSION['rank']!=1)
 {
 	header('location:home.php');
 }}?>
@@ -35,7 +36,7 @@ if ($_SESSION['rank']!=2)
 	</table>
 	</form></br></br></br></br></br>
 <?php } else {?>
-<?php 
+<?php
 	$db = mysqli_connect('localhost', 'root', '','admin');
 	$y=$_POST['year'];
 	$m=$_POST['month'];
@@ -60,7 +61,7 @@ if ($_SESSION['rank']!=2)
 	{
 		echo "<script type='text/javascript'>alert('You can't combine between year and days without month!');window.location.href='order_reports.php'</script>";
 	}
-	
+
 	if($query)
 	{
 		?>
@@ -70,7 +71,7 @@ if ($_SESSION['rank']!=2)
 		<tr>
 		<td>Order ID</td><td>User</td><td>Date</td><td>Credit Card</td><td>CVV</td><td>Exp</td><th>Total Price</td>
 		</tr>
-<?php 
+<?php
 	$db = mysqli_connect('localhost', 'root', '','admin');
 	if($query)
 	{
@@ -94,7 +95,7 @@ if ($_SESSION['rank']!=2)
 	<td><?php echo '#';echo $id;?></td><td><?php echo $user;?></td><td><?php echo $date; ?></td><td><?php echo $card; ?></td>
 	<td><?php echo $cvv; ?></td><td><?php echo $exp; ?></td><td><?php echo $tprice; echo '$';?></td>
 	</tr>
-	
+
 <?php
 		}?>
 		</table>
@@ -103,7 +104,7 @@ if ($_SESSION['rank']!=2)
 		</center>
 	<?php }
 }
-	else 
+	else
 	{
 		echo "<script type='text/javascript'>alert('Your input is doesn't exists in the system!');window.location.href='order_reports.php'</script>";
 	}
