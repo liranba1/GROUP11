@@ -1,6 +1,7 @@
+<?php include "table.css" ;include "header.php" ;?>
 <center>
-<a href="search.php">Return Search</p></a>
 <a href="home.php">Return Home Page</p></a>
+<a href="search.php">Return Search</p></a>
 </center>
 <center>
 <table border=1>
@@ -13,7 +14,7 @@
 </tr>
 
 
-<?php 
+<?php
 $db = mysqli_connect('localhost', 'root', '','cart');
 $barcode=$_POST['barcode'];
 $name=$_POST['item_name'];
@@ -50,10 +51,10 @@ while ($row =mysqli_fetch_array($run))
 	<input type="hidden" value="<?php echo $barcode; ?>" name="barcode" />
 	<?php if($quantity>0) {?>
 	<th><input type="submit" name="submit" value="Add to cart"></th>
-	
+
 	<?php } else {?>
 	<th><?php echo "Item out of stock!"; ?></th>
 <?php }?>
-	
+
 	</form></tr>
 <?php }?>
