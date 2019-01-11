@@ -1,4 +1,5 @@
-<?php session_start(); if (isset($_SESSION['username'])) { ?>
+<?php include "table.css" ;?>
+<?php include "header.php" ; if (isset($_SESSION['username'])) { ?>
 
 <a href="cart.php"><p align="right">View Cart</p></a>
 <a href="home.php"><p align="right">Home Page</p></a>
@@ -15,7 +16,7 @@
 <th>Delete</th>
 </tr>
 
-<?php 
+<?php
 $username=$_SESSION['username'];
 $db = mysqli_connect('localhost', 'root', '','cart');
 $query="SELECT * FROM wishlist WHERE username='$username'";
@@ -51,9 +52,9 @@ while ($row =mysqli_fetch_array($run))
 	<th><input type="submit" name="submit" value="Add to cart"></th>
 	<th><input type="submit" name="delete" value="Delete"></th>
 	</form></tr>
-	
+
 	<?php }?>
-	
+
 <?php
 if (isset($_POST['submit']))
 {
@@ -73,13 +74,13 @@ if (isset($_POST['submit']))
 			echo "<script type='text/javascript'>alert('The product successfuly added to the cart!');window.location.href='wishlist.php'</script>";
 		}
 	}
-	else 
+	else
 	{
 		echo "<script type='text/javascript'>alert('Product adding is Faild!');window.location.href='wishlist.php'</script>";
 	}
-	
 
-}	
+
+}
 if (isset($_POST['delete']))
 {
 	$id=$_POST['id'];
@@ -88,22 +89,21 @@ if (isset($_POST['delete']))
 		echo "<script type='text/javascript'>alert('The product successfuly deleted!');window.location.href='wishlist.php'</script>";
 	else
 		echo "<script type='text/javascript'>alert('The product delete Faild try again!');window.location.href='wishlist.php'</script>";
-	
+
 }
 ?>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-<?php }?>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php }?>
