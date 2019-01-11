@@ -1,5 +1,4 @@
 <?php include "server.php"; ?>
-<!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -13,7 +12,9 @@ body {
     margin: 0;
 }
 
-
+body {
+  background-color: #d3d3d3;
+}
 
 .navbar {
     overflow: hidden;
@@ -78,7 +79,7 @@ body {
     width: 33.33%;
     padding: 10px;
     background-color: white;
-    height: 250px;
+    height: 500px;
 }
 
 .column a {
@@ -107,13 +108,13 @@ body {
 <body>
 <div class="navbar">
   <a href="home.php">Home</a>
-  	<?php if (isset($_SESSION['username'])) { 
+  	<?php if (isset($_SESSION['username'])) {
 	$username=$_SESSION['username'];
 	$db = mysqli_connect('localhost', 'root', '','registarion');
 	$rank=mysqli_query($db,"SELECT rank from users where username='$username'");
 	$result = mysqli_fetch_array($rank);
 	$_SESSION['rank']=$result['rank'];
-	if ($result['rank']==2) {
+	if ($result['rank']==0||$result['rank']==2) {
 	?>
 	<div class="dropdown">
     <button class="dropbtn"><?php echo $username; ?>
@@ -131,15 +132,15 @@ body {
 		  <a href="wishlist.php">My Wishlist</a>
         </div>
 		<div class="column">
-          <h3>Shipping</h3>
-          <a href="add_product.php">Shipping info</a>
+          <h3>My Messages</h3>
+          <a href="user_messages.php">Messages</a>
         </div>
-	<?php 
-		} 
-	} ?>
-      </div>
+	   </div>
     </div>
   </div>
+	<?php
+		}
+	} ?>
   <div class="dropdown">
     <button class="dropbtn">Menu
       <i class="fa fa-caret-down"></i>
@@ -171,17 +172,49 @@ body {
     <a href="contact.php">Contact us</a>
 	<a href="about.php">About us</a>
 	<a href="search.php">Search items</a>
-	<a href="cart.php">Cart</a>
-	<?php if (isset($_SESSION['username'])) { 
+
+	<?php if (isset($_SESSION['username'])) {
 	$username=$_SESSION['username'];
 	$db = mysqli_connect('localhost', 'root', '','registarion');
 	$rank=mysqli_query($db,"SELECT rank from users where username='$username'");
 	$result = mysqli_fetch_array($rank);
 	$_SESSION['rank']=$result['rank'];
-	if ($result['rank']==2) {
+
+	if ($result['rank']==1) {
 	?>
 	<div class="dropdown">
-    <button class="dropbtn">Administration
+    <button class="dropbtn">Stock and Financial manage
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <div class="row">
+        <div class="column">
+          <h3>Reports</h3>
+		  <a href="payment_reports.php">Payment Reports</a>
+		  <a href="order_reports.php">Order Reports</a>
+		  <a href="shippments_reports.php">Shippment Reports</a>
+		  <a href="lack.php">Lack Reports</a>
+        </div>
+		<div class="column">
+          <h3>Search</h3>
+		  <a href="search_order.php">Search Order</a>
+		  <a href="search_product.php">Search Product</a>
+        </div>
+		<div class="column">
+          <h3>General</h3>
+          <a href="most_popular.php">Most Popular</a>
+        </div>
+		</div>
+    </div>
+	  </div>
+	<?php
+		}
+	} ?>
+  	<?php if (isset($_SESSION['rank'])) {
+	if($_SESSION['rank']==2) {
+	?>
+	<div class="dropdown">
+    <button class="dropbtn">Content and Media Manage
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
@@ -191,32 +224,30 @@ body {
           <a href="add_product.php">Add new product</a>
 		  <a href="edit_product.php">Update products</a>
 		  <a href="delete_product.php">Delete products</a>
+		  <a href="product_reports.php">Products on Store</a>
         </div>
         <div class="column">
-          <h3>Reports</h3>
-          <a href="payment_reports.php">Payments</a>
-		  <a href="order_reports.php">Orders</a>
-		  <a href="product_reports.php">Products on store</a>
-		  <a href="tinfo.php">Total Info</a>
+          <h3>Support</h3>
+          <a href="messages_reports.php">Customers Messages</a>
+		  <a href="search_user.php">Search User</a>
+		  <a href="delete_user.php">Delete User</a>
+      <a href="edit_users.php">Users report</a>
         </div>
 		<div class="column">
-          <h3>Shipping</h3>
-          <a href="add_product.php">Shipping info</a>
+          <h3>Permissions</h3>
+          <a href="permissions.php">Make/Change Permission</a>
         </div>
-	<?php 
-		} 
+	<?php
+		}
 	} ?>
       </div>
     </div>
   </div>
 </div>
-</div>
 
 <div style="padding:16px">
-  <h2>Arlen</h2>
-  <p>Fashion Design</p>
-</div>
 
+</div>
 </body>
 </html>
 
@@ -426,7 +457,7 @@ img {vertical-align: middle;}
 }
 
 .active, .dot:hover {
-  background-color: #717171;
+  background-color: black;
 }
 
 /* Fading animation */
@@ -459,19 +490,19 @@ img {vertical-align: middle;}
 
 <div class="mySlides fade">
   <div class="numbertext">1 / 3</div>
-  <img src="1542270931C31Ls.webp" style="width:100%">
+  <img src="1.jpg" style="width:100%">
 
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">2 / 3</div>
-  <img src="1541322693j93Uz.webp" style="width:100%">
+  <img src="2.jpg" style="width:100%">
   <div class="text">Caption Two</div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext">3 / 3</div>
-  <img src="1542895573d73RL.webp" style="width:100%">
+  <img src="3.jpg" style="width:100%">
   <div class="text">Caption Three</div>
 </div>
 
@@ -731,11 +762,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 <div class="form-popup" id="myForm">
 
   <form action="/action_page.php" class="form-container">
-  
+
     <a href="login.php">
     <button type="button" class="btn">Login</button>
 	</a>
-	
+
     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
   </form>
 </div>

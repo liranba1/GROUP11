@@ -1,4 +1,5 @@
 <?php session_start(); if(isset($_SESSION["username"])){ ?>
+	<?php include "table.css" ;?>
 <a href="home.php"><p align="right">Home Page</p></a>
 <center>
 <?php echo @$_GET['mes']; ?>
@@ -9,7 +10,7 @@
 <tr>
 <th>Delete product</th><th>Name</th><th>Image</th><th>Price</th><th>Size</th><th>Quantity</th><th>Total</th>
 </tr>
-<?php 
+<?php
 if(isset($_SESSION["username"]))
 {
 $username=$_SESSION["username"];
@@ -49,17 +50,17 @@ $query="SELECT * from cart WHERE username='$username'";
 </table>
 </form>
 </center>
-<?php 
+<?php
 $db = mysqli_connect('localhost', 'root', '','cart');
 
 if (isset($_POST['submit']))
 {
 	if (isset($_POST['qty'])) {
-		
+
 		$quaty=$_POST['qty'];
 		$ids=$_POST['id'];
 		$user=$_POST['username'];
-		
+
 		foreach($quaty as $q)
 		{
 			if($q>50 or $q<1)
@@ -74,11 +75,11 @@ if (isset($_POST['submit']))
 		{
 			$res=mysqli_query($db,"SELECT * from cart WHERE id='$i'");
 			$row=mysqli_fetch_assoc($res);
-			
+
 			$bar=$row['barcode'];
 			$name=$row['p_name'];
 			$sz=$row['p_size'];
-			
+
 			$res=mysqli_query($db,"SELECT * from stock WHERE barcode='$bar' and size='$sz'");
 			$row=mysqli_fetch_assoc($res);
 			$pquant=$row['quantity'];
@@ -86,7 +87,6 @@ if (isset($_POST['submit']))
 			if($q>$pquant)
 			{
 				$msg='Quantity choosen for: '.$name.' '.$sz.' is not Available!';
-				$_SESSION['key']=1;
 				echo '<script type="text/javascript">alert("'.$msg.'")</script>';
 			}
 			else
@@ -104,15 +104,15 @@ if (isset($_POST['submit']))
 		{
 			?>
 			<script type='text/javascript'>alert('Quantity Must be between 1 to 50!');window.location.href='cart.php'</script>;
-			<?php 
-			unset($_SESSION['error']);	
+			<?php
+			unset($_SESSION['error']);
 		}
 }
 }
 ?>
 <?php
 	$db = mysqli_connect('localhost', 'root', '','cart');
-	
+
 	if(isset($_POST['submit']))
 {
 	if(isset($_POST['check']))
@@ -130,10 +130,10 @@ if (isset($_POST['submit']))
 			{
 				header("location:cart.php?mes=Item delete faild");
 			}
-			
+
 		}
 	}
-	
+
 }
 ?>
 <center>
@@ -144,7 +144,7 @@ if (isset($_POST['submit']))
 <form action="order.php" method="post">
 <input type="submit" name="checkout" value="Check Out">
 </form>
-</center> 
+</center>
 <center>
 </center>
 <?php }
@@ -152,7 +152,7 @@ else
 echo "Cart is Empty";
 ?>
 <?php }?>
-<?php if (!isset($_SESSION["username"])) { ?> 
+<?php if (!isset($_SESSION["username"])) { ?>
 <center>
 <br></br>
 <p>You must Log in before getting cart</p>

@@ -1,5 +1,6 @@
-<?php 
-session_start();
+<?php include "table.css" ;?>
+<?php
+include "header.php";
 if(isset($_SESSION["username"]))
 $username=$_SESSION["username"];
 ?>
@@ -13,12 +14,13 @@ $username=$_SESSION["username"];
 <th>Price</th>
 <th>Size</th>
 <th>Add to cart</th>
+<th>Wishlist</th>
 </tr>
 
 
-<?php 
+<?php
 $db = mysqli_connect('localhost', 'root', '','cart');
-$query="SELECT * FROM product WHERE size='All'";
+$query="SELECT * FROM product WHERE size='All' and catagory='heels'";
 $run=mysqli_query($db,$query);
 while ($row =mysqli_fetch_array($run))
 {
@@ -32,7 +34,7 @@ while ($row =mysqli_fetch_array($run))
 	$cat=$row['catagory'];
 	?>
 	<tr><th><?php echo $name; ?></th>
-	<th><img src="image/<?php echo $image ; ?>" width="300" height="200" ?></th>
+	<th><img src="image/<?php echo $image ; ?>" width="200" height="300" ?></th>
 	<th><?php echo $price; echo '$'; ?></th>
 	<form action="heels.php" method="post">
 		<th><select name="size">
@@ -44,33 +46,35 @@ while ($row =mysqli_fetch_array($run))
 		</select></th>
 	<input type="hidden" value="<?php echo $id; ?>" name="id" />
 	<input type="hidden" value="<?php echo $barcode; ?>" name="barcode" />
-	<?php if($quantity>0) {?>
 	<th><input type="submit" name="submit" value="Add to cart"></th>
-	
-	<?php } else {?>
-	<th><?php echo "Item out of stock!"; ?></th>
-	<?php }?>
-	
+	<th>
+	<a href='process.php?name=<?php echo $name;?>&barcode=<?php echo $barcode;?>&image=<?php echo $image;?>&cat=<?php echo $cat;?>&price=<?php echo $price;?>'> Wishlist </a>
+	</th>
 	</form></tr>
+
 	<?php }?>
 	<?php if(isset($_POST['submit']) and isset($_SESSION['username']))
 	{
-		
+
 		$size=$_POST['size'];
 		$barcode=$_POST['barcode'];
-		
+
 		$db = mysqli_connect('localhost', 'root', '','cart');
 		$result=mysqli_query($db,"SELECT quantity from stock WHERE barcode='$barcode' AND size='$size'");
 		$row=mysqli_fetch_assoc($result);
 		$res=$row['quantity'];
 		
-		if($res<1)
+		$res1=mysqli_query($db,"SELECT * from cart WHERE username='$username' AND p_size='$size' AND barcode='$barcode'");
+		if(mysqli_num_rows($res1)!=0)
+			echo "<script>alert('The product choosen is already in the cart!'); window.location.href='heels.php'</script>";
+
+		else if($res<1)
 			echo "<script>alert('The product choosen is out of Stock!'); window.location.href='heels.php'</script>";
 		else
 		{
 		$query="SELECT * from stock WHERE barcode='$barcode' AND size='$size'";
 		$run=mysqli_query($db,$query);
-		
+
 	while($row=mysqli_fetch_array($run))
 		{
 			$barcode=$row['barcode'];
@@ -83,7 +87,7 @@ while ($row =mysqli_fetch_array($run))
 		}
 			if (mysqli_query($db,$query))
 				echo "<script type='text/javascript'>alert('The product successfully added to cart!')</script>";
-			else 
+			else
 				echo "<script type='text/javascript'>alert('Adding product failed, try again!')</script>";
 		}
 	}
@@ -93,7 +97,7 @@ while ($row =mysqli_fetch_array($run))
 		echo "<script type='text/javascript'>alert('You must log in before Adding to cart!');window.location.href='login.php'</script>";
 	}
 	?>
-<?php 
+<?php
 ?>
 </table>
 </center>

@@ -1,4 +1,6 @@
-<?php session_start(); if(isset($_SESSION["username"]) and isset($_POST['checkout'])) { ?>
+
+<?php include "header.php" ; if(isset($_SESSION["username"]) and isset($_POST['checkout'])) { ?>
+<?php include "table.css" ;?>
 <a href="home.php"><p align="right">Home Page</p></a>
 <center>
 <table border=1>
@@ -7,7 +9,7 @@
 <th>Item Barcode</th><th>Name</th><th>Image</th><th>Size</th><th>Quantity</th><th>Total</th>
 </tr>
 <?php $_SESSION['pay']=1 ?>
-<?php 
+<?php
 $username=$_SESSION["username"];
 $db = mysqli_connect('localhost', 'root', '','cart');
 $query="SELECT * from cart WHERE username='$username'";
