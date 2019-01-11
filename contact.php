@@ -1,15 +1,22 @@
-<?php session_start(); ?>
+<?php include "header.php" ;?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
 * {box-sizing: border-box;}
+
+body {
+  background-color: #d3d3d3;
+}
 
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
 
 .header {
   overflow: hidden;
@@ -34,7 +41,7 @@ body {
 }
 
 .header a:hover {
-  background-color: #ddd;
+  background-color: #d3d3d3;
   color: black;
 }
 
@@ -107,7 +114,7 @@ input[type=Send]:hover {
 /* Style the container/contact section */
 .container {
     border-radius: 5px;
-    background-color: #f2f2f2;
+    background-color: #d3d3d3;
     padding: 10px;
 }
 
@@ -134,18 +141,18 @@ input[type=Send]:hover {
 
     }
 }
+
 </style>
 </head>
 <body>
 <div class="container">
-<a href="home.php"><p align="left">Back to Home Page</p></a>
   <div style="text-align:center">
     <h2>Contact Us</h2>
     <p>please enter your details</p>
   </div>
   <div class="row">
     <div class="column">
-      <a href="home.php"><img src="logo.png" style="width:100%"></a>
+      <a href="home.php"><img src="logo.jpeg" style="width:100%"></a>
     </div>
     <div class="column">
       <form action="contact.php" method="post">
@@ -162,11 +169,11 @@ input[type=Send]:hover {
 		</center>
       </form>
 	  <?php
-	  $db = mysqli_connect('localhost', 'root', '','admin');
 	  if(!isset($db))
 		  header("location:home.php");
 		if (isset($_POST['submit']))
 		{
+			$db = mysqli_connect('localhost', 'root', '','admin');
 			if(isset($_SESSION['username']))
 			{
 				$username=$_SESSION['username'];
@@ -175,20 +182,25 @@ input[type=Send]:hover {
 				$email=$_POST['email'];
 				$message=$_POST['message'];
 				$full_name=$fname.' '.$lname;
-				$query="insert into support (username,full_name,email,message) VALUES ('$username','$full_name','$email','$message')";
-				if (mysqli_query($db,$query))
-				{
-					echo "<script>alert('Message Sent!'); window.location.href='home.php'</script>";
+				$year=date('Y');
+				$month=date('m');
+				$day=date('d');
+				$time=date('h:i:s');
+				if(strlen($message)>255 or empty($message) or strlen($full_name)>30 or empty($full_name) or strlen($email)>30 or empty($email)){
+					echo "<script>alert('One of the fields is unvalid try again'); window.location.href='contact.php'</script>";
 				}
 				else
 				{
+				$query="insert into support (username,full_name,email,year,month,day,time,message) VALUES ('$username','$full_name','$email','$year','$month','$day','$time','$message')";
+				if (mysqli_query($db,$query))
+					echo "<script>alert('Message Sent!'); window.location.href='home.php'</script>";
+				else
 					echo "<script type='text/javascript'>alert('Message send faild')</script>";
 				}
 			}
 			else
 				echo "<script type='text/javascript'>alert('You must log in before sending a message!')</script>";
 		}
-		
 ?>
     </div>
   </div>

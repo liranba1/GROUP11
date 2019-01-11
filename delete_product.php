@@ -1,15 +1,17 @@
-<?php session_start(); 
+<?php include "table.css" ;?>
+<?php 
+include "header.php" ;
 if(!isset($_SESSION['username']))
 {
-	header('location:home.php');
+	echo "<script type='text/javascript'>alert('Permission Denied');window.location.href='home.php'</script>";
 }
 $username=$_SESSION['username'];
 $db = mysqli_connect('localhost', 'root', '','registarion');
 $rank=mysqli_query($db,"SELECT rank from users where username='$username'");
 $result = mysqli_fetch_array($rank);
-if ($result['rank']!=2) 
+if ($result['rank']!=2)
 {
-	header('location:home.php');
+	echo "<script type='text/javascript'>alert('Permission Denied');window.location.href='home.php'</script>";
 }?>
 	<a href="home.php"><p align="right">Home Page</p></a>
 	<center>
@@ -36,30 +38,36 @@ if ($result['rank']!=2)
 	</form>
 	<?php if(isset($_POST['submit'])) {
 		$db = mysqli_connect('localhost', 'root', '','cart');
-		
+
 		$barcode=$_POST['barcode'];
 		$size=$_POST['size'];
+
+		$query="DELETE FROM cart WHERE barcode='$barcode' AND p_size='$size'";
+			mysqli_query($db,$query);
 		
 		$query="DELETE FROM stock WHERE barcode='$barcode' AND size='$size'";
-		mysqli_query($db,$query);
+			mysqli_query($db,$query);
 		if(mysqli_query($db,$query))
 		{
-			echo "<script>alert('Delete product Succesfully'); window.location.href='delete_product.php'</script>";
+			echo "<script>alert('Product deleted'); window.location.href='delete_product.php'</script>";
 		}
+
 	}?>
 		<?php if(isset($_POST['delete'])) {
 		$db = mysqli_connect('localhost', 'root', '','cart');
-		
+
 		$barcode=$_POST['barcode'];
+		
 		$query="DELETE FROM product WHERE barcode='$barcode'";
-		mysqli_query($db,$query);
+			mysqli_query($db,$query);
 		$query="DELETE FROM stock WHERE barcode='$barcode'";
-		mysqli_query($db,$query);
+			mysqli_query($db,$query);
 		$query="DELETE FROM cart WHERE barcode='$barcode'";
-		mysqli_query($db,$query);
+			mysqli_query($db,$query);
+		$query="DELETE FROM wishlist WHERE barcode='$barcode'";
+			mysqli_query($db,$query);
 		if(mysqli_query($db,$query))
 		{
-			echo "<script>alert('Product deleted from the store'); window.location.href='edit_product.php'</script>";
+			echo "<script>alert('Product deleted from the store'); window.location.href='delete_product.php'</script>";
 		}
 	}?>
-

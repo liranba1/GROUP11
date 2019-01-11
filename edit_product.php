@@ -1,16 +1,19 @@
-<?php session_start(); 
+<?php
+include "header.php";
 if(!isset($_SESSION['username']))
 {
-	header('location:home.php');
+	echo "<script type='text/javascript'>alert('Permission Denied');window.location.href='home.php'</script>";
 }
-$username=$_SESSION['username'];
-$db = mysqli_connect('localhost', 'root', '','registarion');
-$rank=mysqli_query($db,"SELECT rank from users where username='$username'");
-$result = mysqli_fetch_array($rank);
-if ($result['rank']!=2) 
+if(isset($_SESSION['rank']))
 {
-	header('location:home.php');
-}?>
+if ($_SESSION['rank']!=2)
+{
+	echo "<script type='text/javascript'>alert('Permission Denied');window.location.href='home.php'</script>";
+}
+if ($_SESSION['rank']==2) { ?>
+
+<?php if (!isset($_POST['submit']))
+{ ?>
 	<a href="home.php"><p align="right">Home Page</p></a>
 	<center>
 	<form action="edit_product.php" method="post">
@@ -20,7 +23,7 @@ if ($result['rank']!=2)
 	</tr>
 	<tr>
 	<td>Product Barcode:</td>
-	<td><input type="text" name="barcode" /></td>
+	<td><input type="text" name="barcode"/></td>
 	</tr>
 	<td>Size:</td>
 	<th><select name="size">
@@ -33,22 +36,31 @@ if ($result['rank']!=2)
 	<tr><td colspan=2 align="center"><input type="submit" name="submit" value="submit" /> </td></tr>
 	</table>
 	</form>
+<?php } ?>
 	<?php if(isset($_POST['submit'])) {
 		$db = mysqli_connect('localhost', 'root', '','cart');
+
 		$barcode=$_POST['barcode'];
 		$size=$_POST['size'];
-		
-		$_SESSION['barcode']=$barcode;
-		$_SESSION['size']=$size;
-		
+
 		$query="SELECT * FROM stock WHERE barcode='$barcode' AND size='$size'";
 		$res=mysqli_query($db,$query);
-		$row=mysqli_fetch_assoc($res);
-		
-		$image=$row['image'];
-		$price=$row['price'];
+		if(mysqli_num_rows($res)==0)
+		{
+			echo "<script type='text/javascript'>alert('Product or Size of the product doesnt exists!');window.location.href='edit_product.php'</script>";
+		}
+		else
+		{
+			$row=mysqli_fetch_array($res);
+			$quantity=$row['quantity'];
+			$image=$row['image'];
+			$price=$row['price'];
+			$name=$row['name'];
 		?>
-		<br><img src="image/<?php echo $image ; ?>" width="300" height="200" ?></br>
+		<center>
+		<br><img src="image/<?php echo $image ; ?>" width="300" height="200" ?></br><br><?php echo 'Barcode: #';echo $barcode; ?></br><br><?php echo $name;?></br><br><?php echo 'Size:'; echo $size; ?></br>
+		<br><?php echo 'Current Quantity:'; echo $quantity; ?></br><br><?php echo 'Current Price:'; echo $price; echo '$';?></br>
+		</center>
 		<form action="edit_product.php" method="post">
 		<tr>
 		<br><td>Edit Name:</td>
@@ -66,42 +78,43 @@ if ($result['rank']!=2)
 		<br><td>Edit price:</td>
 		<td><input type="text" name="price" /></td>
 		</tr></br>
-		<input type="submit" name="update" value="Update Products">
+		<input type="hidden" name="barcode" value="<?php echo $barcode;?>">
+		<input type="hidden" name="size" value="<?php echo $size;?>">
+		<center>
+		<input type="submit" name="update" value="Update Product">
+		</center>
 		</form>
-		<?php }?>
+		<?php }}?>
 		<?php
 		if(isset($_POST['update']))
 		{
+			$barcode=$_POST['barcode'];
+			$size=$_POST['size'];
 			$db = mysqli_connect('localhost', 'root', '','cart');
 			$n=$_POST['name'];
 			$b=$_POST['barcode'];
 			$q=$_POST['quantity'];
 			$p=$_POST['price'];
-			
-			$barcode=$_SESSION['barcode'];
-			$size=$_SESSION['size'];
-			unset($_SESSION['barcode']);
-			unset($_SESSION['size']);
-			
-			if(isset($n))
+
+			if(!empty($n))
 			{
 				$update="UPDATE stock SET name='$n' WHERE barcode='$barcode' AND size='$size'";
-				mysqli_query($db,$update);
+				mysqli_query($db,$update) or die('SQL ERROR1');
 			}
-			if(isset($b))
+			if(!empty($b))
 			{
 				$update="UPDATE stock SET barcode='$b' WHERE barcode='$barcode' AND size='$size'";
-				mysqli_query($db,$update);
+				mysqli_query($db,$update) or die('SQL ERROR2');
 			}
-			if(isset($q))
+			if(!empty($q))
 			{
 				$update="UPDATE stock SET quantity='$q' WHERE barcode='$barcode' AND size='$size'";
-				mysqli_query($db,$update);
+				mysqli_query($db,$update)or die('SQL ERROR3');
 			}
-			if (isset($p))
+			if (!empty($p))
 			{
 				$update="UPDATE stock SET price='$p' WHERE barcode='$barcode' AND size='$size'";
-				mysqli_query($db,$update);
+				mysqli_query($db,$update)or die ('SQL ERROR4');
 			}
 			if(mysqli_query($db,$update))
 			{
@@ -110,4 +123,6 @@ if ($result['rank']!=2)
 		}
 		?>
 		<?php
-	?>
+}}else
+	echo "<script type='text/javascript'>alert('Permission Denied');window.location.href='home.php'</script>";
+?>
