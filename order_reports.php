@@ -1,11 +1,12 @@
-<?php session_start(); 
+<?php include "table.css" ;?>
+<?php include "header.php" ;
 if(!isset($_SESSION['username']))
 {
 	header('location:home.php');
 }
 if(isset($_SESSION['rank']))
 {
-if ($_SESSION['rank']!=2) 
+if ($_SESSION['rank']!=1)
 {
 	header('location:home.php');
 }}?>
@@ -35,11 +36,17 @@ if ($_SESSION['rank']!=2)
 	</table>
 	</form></br></br></br></br></br>
 <?php } else {?>
-<?php 
+<?php
 	$db = mysqli_connect('localhost', 'root', '','admin');
 	$y=$_POST['year'];
 	$m=$_POST['month'];
 	$d=$_POST['day'];
+	if($d>31 or $m>12 or $y>2019){
+		echo "<script type='text/javascript'>alert('wrong value!');window.location.href='order_reports.php'</script>";
+	}
+	if($d<1 or $m<1 or $y<2018){
+		echo "<script type='text/javascript'>alert('wrong value!');window.location.href='order_reports.php'</script>";
+	}
 	if(empty($y))
 		echo "<script type='text/javascript'>alert('You must Enter atleast year!');window.location.href='order_reports.php'</script>";
 	if(!empty($y) and !empty($m))
@@ -58,7 +65,7 @@ if ($_SESSION['rank']!=2)
 	{
 		echo "<script type='text/javascript'>alert('You can't combine between year and days without month!');window.location.href='order_reports.php'</script>";
 	}
-	
+
 	if($query)
 	{
 		?>
@@ -68,7 +75,7 @@ if ($_SESSION['rank']!=2)
 		<tr>
 		<th>Order ID</th><th>Username</th><th>Order Date</th><th>Item Barcode</th><th>Name</th><th>Image</th><th>Size</th><th>Quantity</th><th>Total</th>
 		</tr>
-<?php 
+<?php
 	$db = mysqli_connect('localhost', 'root', '','admin');
 	if($query)
 	{
@@ -90,7 +97,6 @@ if ($_SESSION['rank']!=2)
 			$y=$row['year'];
 			@$total+=$row['price']*$quantity;
 			$qq+=$quantity;
-			$tt+=$total;
 			$user=$row['username'];
 	?>
 	<?php $date=$d.'/'.$m.'/'.$y; ?>
@@ -98,17 +104,17 @@ if ($_SESSION['rank']!=2)
 	<td><?php echo '#';echo $id;?></td><td><?php echo $user; ?></td><td><?php echo $date;?></td><td><?php echo '#';echo $barcode; ?></td><td><?php echo $name; ?></td><td><img src="image/<?php echo $image ?>" width=50 height=50 /></td>
 	<td><?php echo $size; ?></td><td><?php echo $quantity; ?></td><td><?php echo $t_p; echo '$';?></td>
 	</tr>
-	
+
 <?php
 		}?>
 		</table>
 		<center>
 		<br><th>Total Sales Quantity: <?php echo $qq;?></th></br>
-		<br><th>Total Sales Balance: <?php echo $tt; echo '$'; ?> </th></br>
+
 		</center>
 	<?php }
 }
-	else 
+	else
 	{
 		echo "<script type='text/javascript'>alert('Your input is doesn't exists in the system!');window.location.href='order_reports.php'</script>";
 	}
